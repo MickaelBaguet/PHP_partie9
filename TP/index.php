@@ -1,3 +1,18 @@
+ <?php
+    // Tableaux représentant les valeurs des mois et des jours de la semaine
+    $arrayOfMonths = array('', 'Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre');
+    $arrayOfDay = array('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche');
+    // $dayOfWeek vaudra entre 1 (Lundi) et 7 (Dimanche), on l'utilisera comme index pour $arrayOfDay
+    $dayOfWeek = date("N", mktime(0, 0, 0, $_GET['month'], 1, $_GET['years']));
+    // Mois et année choisi dans le formulaire
+    $monthChosen = $_GET['month'];
+    $yearChosen = $_GET['years'];
+    $day = 0;
+    // Nombre de jour pour le mois et l'année choisi (dans un if afin d'éviter une erreur)
+    if (isset($monthChosen) && isset($yearChosen)) {
+        $numberOfDay = cal_days_in_month(CAL_GREGORIAN, $monthChosen, $yearChosen);
+    }
+?>
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <head>
@@ -15,21 +30,6 @@
             <a href="../index.php" class="btn btn-primary">Retour</a>
         </div>
         <div class="justify-content-center">    
-            <?php
-                // Tableaux représentant les valeurs des mois et des jours de la semaine
-                $arrayOfMonths = array('', 'Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','Décembre');
-                $arrayOfDay = array('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche');
-                // $dayOfWeek vaudra entre 1 (Lundi) et 7 (Dimanche), on l'utilisera comme index pour $arrayOfDay
-                $dayOfWeek = date("N", mktime(0, 0, 0, $_GET['month'], 1, $_GET['years']));
-                // Mois et année choisi dans le formulaire
-                $monthChosen = $_GET['month'];
-                $yearChosen = $_GET['years'];
-                $day = 0;
-                // Nombre de jour pour le mois et l'année choisi (dans un if afin d'éviter une erreur)
-                if (isset($monthChosen) && isset($yearChosen)) {
-                    $numberOfDay = cal_days_in_month(CAL_GREGORIAN, $monthChosen, $yearChosen);
-                }
-            ?>
             <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" method="get" class="mb-3">
                 <!-- Label pour les différents mois -->
                 <label for="month"></label>
